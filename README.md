@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
 
 3. You should see the text "Hello World!" appear in the Expo app on your phone through live reloading.
 
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/5e02a421-d028-4812-a60c-6909163270ad" width="350" />
+
 ----
 ### Styling
 
@@ -101,6 +103,8 @@ const styles = StyleSheet.create({
 The const styles is declared as a StyleSheet object. This object contains a number of properties that describe how a component should be styled. Each property contains a number of key-value pairs. The key is the name of the style property aka the class, and the value is the value of the style property. For example, the backgroundColor property sets the background color of the component. The value of the backgroundColor property is '#fff', which is a hex code that represents white. Notice how these properties are camelCased versions of CSS properties.
 
 2. Let's change the background colour to light blue. Change the background colour property to '#add8e6', and save the file. You should see the background colour change on your phone.
+
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/5431487d-8d9a-4984-92fd-30076c6985f1" width="350" />
 
 ---
 ### Componenets
@@ -140,6 +144,9 @@ import Button from './component/button.component';
 <Text>Hello World!</Text>
 <Button />
 ```
+
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/26fbac64-9fb7-4b1d-8551-30944cb85fec" width="350" />
+
 
 You should now see the text 'Click Me!' below 'Hello World!', and should be able to click it. But it doesn't look like a button, and there is nothing the button does at the moment. To make these changes, we can add props to the component. Think of props like parameters to a functions. It allows you to customize the behaviour of a component each time you call it. 
 
@@ -345,6 +352,10 @@ const DetailsScreen = ({ navigation }) => {
   );
 };
 ```
+
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/11494672-9043-46af-b21e-19628282475b" width="350" />
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/09fc2e83-20ee-4ba3-a929-1c508f91762f" width="350" />
+
 ----
 ### Lists
 
@@ -429,3 +440,106 @@ const DetailsScreen = ({ navigation }) => {
   );
 };
 ```
+
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/e3bdb791-df53-4f81-8938-0a9681fa0b92" width="350" />
+
+----
+### Networking
+1. Now, let's fetch data from a server. Let's create a new component called post.component.jsx to display a post.
+```js
+import { View, Text, StyleSheet } from 'react-native';
+
+const Post = ({ title, body }) => {
+  return (
+    <View style={styles.container}>
+      <Text>{title}</Text>
+      <Text>{body}</Text>
+    </View>
+  );
+};
+
+export default Post;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#add8e6',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      button: {
+        backgroundColor: '#00bfff',
+        padding: 10,
+        borderRadius: 15,
+        margin: 10,
+      },
+});
+```
+
+2. Now, let's use the post component in the home screen. Let's fetch posts from the `JSON Placeholder API`. We can use the `fetch` function to fetch data from a server. We can use the `then` function to get the response from the server. We can use the `json` function to convert the response to a JSON object. We can use the `catch` function to catch any errors. Note, that we are using the `useEffect` hook to fetch the data when the component mounts. `useEffect` is used to perform side effects in a component, in other words, react to changes in the component through states or props.
+```js
+// Add these imports
+import { useState, useEffect } from 'react';
+import Post from '../components/post.component';
+
+const DetailsScreen = ({ navigation }) => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((json) => setPosts(json))
+      .catch((error) => console.error(error));
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>Details Screen</Text>
+      <FlatList
+        style={styles.flatlist}
+        data={posts}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <Post title={item.title} body={item.body} />}
+      />
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+        style={styles.button}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#00bfff',
+    padding: 10,
+    borderRadius: 15,
+    margin: 10,
+  },
+// Add the following styles, and change their usage in the component appropriately.
+  flatlist: {
+    flexGrow: 0,
+  },
+  heading : {
+    fontSize: 20,
+    fontWeight: 'bold',
+    width: '90%',
+    textAlign: 'center',
+    padding: 10,
+    margin: 10,
+  }
+});
+```
+
+<img src="https://github.com/vshree-13/react-native-starterpack/assets/71380417/5b74f18d-c704-415d-9e1c-e4e5d55f9708" width="350" />
+
+# Congratulations! 🎉
+
+You've finished the react-native hackpack! Now, you can build your own react-native apps!
