@@ -187,3 +187,245 @@ const styles = StyleSheet.create({
   },
 });
 ```
+----
+### Screens
+
+Now that we have a component, let's move on to screens. Screens are components that are like pages in a website. We can use the Button component that we created earlier in a screen. We can manage screens and navigating between them using React Navigation. 
+
+1. Let's install React Navigation.
+```
+npm install @react-navigation/native @react-navigation/native-stack
+```
+
+2. Now, let's create a new screen in a new `screens/` folder named `home.screen.jsx`. This will be the home screen of our app. Let's create a home screen component. Note, that we are using the StatusBar component from Expo to set the status bar style (light or dark) so that it is visible on the screen.
+```js
+import { View, Text, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
+const HomeScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Home Screen</Text>
+      <StatusBar style='auto' />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#00bfff',
+    padding: 10,
+    borderRadius: 15,
+    margin: 10,
+  },
+});
+
+export default HomeScreen;
+```
+
+3. In App.js, let's define the navigation stack. The navigation stack is a stack of screens that we can navigate between. We can use the createStackNavigator function to create a stack navigator. The createStackNavigator function takes in a configuration object that contains the screens in the stack. We can use the component property to specify the component to render for each screen. We can also use the options property to specify the title of the screen.
+```js
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Add this import
+import HomeScreen from './screens/home.screen';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Home'
+          component={HomeScreen}
+          options={{ title: 'Home' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+4. Now, let's create a details screen. Let's create a new screen in a new screens/ folder named details.screen.jsx. This will be the details screen of our app. Let's create a details screen component.
+```js
+import { View, Text, StyleSheet } from 'react-native';
+
+const DetailsScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Details Screen</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#00bfff',
+    padding: 10,
+    borderRadius: 15,
+    margin: 10,
+  },
+});
+
+export default DetailsScreen;
+```
+5. Let's add a button to the home screen. Notice that we can pass in the navigation prop to the component. This allows us to navigate to other screens. We can use the navigate function to navigate to a screen. The navigate function takes in the name of the screen to navigate to, as defined in the createStackNavigator function. In this case, we can navigate to the Details screen by passing in 'Details' as the first argument to the navigate function.
+```js
+// Add this import
+import Button from '../components/button.component';
+
+const HomeScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text>Home Screen</Text>
+      <Button
+        title='Go to Details'
+        onPress={() => navigation.navigate('Details')}
+        style={styles.button}
+      />
+    </View>
+  );
+};
+```
+6. In App.js, let's add the Details screen to the navigation stack and define the initial route to be the Home screen. Make sure to reload the app to update the navigation stack.
+```js
+// Add this import
+import DetailsScreen from './screens/details.screen';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen
+          name='Home'
+          component={HomeScreen}
+          options={{ title: 'Home' }}
+        />
+        <Stack.Screen
+          name='Details'
+          component={DetailsScreen}
+          options={{ title: 'Details' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+7. Now, we can navigate between the home screen and the details screen. However, we want to be able to go back to the home screen from the details screen. We can do this by adding a button to the details screen.
+```js
+// Add this import
+import Button from '../components/button.component';
+
+const DetailsScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text>Details Screen</Text>
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+        style={styles.button}
+      />
+    </View>
+  );
+};
+```
+----
+### Lists
+
+1. Now, let's create a list of items. Let's create a new component in a called `list-item.component.jsx`. This will be the list item component of our app. Let's create a list item component.
+```js
+import { View, Text, StyleSheet } from 'react-native';
+
+const ListItem = ({ title }) => {
+  return (
+    <View style={styles.container}>
+      <Text>{title}</Text>
+    </View>
+  );
+};
+
+export default ListItem;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#00bfff',
+    padding: 10,
+    borderRadius: 15,
+    margin: 10,
+  },
+});
+```
+2. Now, let's use the list item component in the details screen. Let's create a list of items and map over the list to render the list items. Note, that we are using the key prop to specify a unique key for each list item. This is required by React to keep track of the list items.
+```js
+// Add this import
+import ListItem from '../components/list-item.component';
+
+const DetailsScreen = ({ navigation }) => {
+  const list = ['Item 1', 'Item 2', 'Item 3'];
+  return (
+    <View style={styles.container}>
+      <Text>Details Screen</Text>
+      {list.map((item, index) => (
+          <ListItem
+            title={item}
+            key={index}
+          />
+        ))}
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+        style={styles.button}
+      />
+    </View>
+  );
+};
+```
+3. What if the `ListItem` is too large to fit on the screen? We can use the `Flatlist` component to render a list of items. The `Flatlist` component takes in a configuration object that contains the list of items to render. We can use the data property to specify the list of items to render. We can also use the renderItem property to specify the component to render for each item. We can also use the keyExtractor property to specify a unique key for each item.
+```js
+// Add this import
+import { FlatList } from 'react-native';
+
+const DetailsScreen = ({ navigation }) => {
+  const list = ['Item 1', 'Item 2', 'Item 3'];
+  return (
+    <View style={styles.container}>
+      <Text>Details Screen</Text>
+      <FlatList
+        style={{
+          flexGrow: 0,
+        }}
+        data={list}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <ListItem title={item}/>}
+      />
+      <Button
+        title='Go back'
+        onPress={() => navigation.goBack()}
+        style={styles.button}
+      />
+    </View>
+  );
+};
+```
