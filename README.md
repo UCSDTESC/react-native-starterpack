@@ -17,6 +17,8 @@ To install Expo SDK, which is a collection of libraries that provide access to n
 
     npm install expo@48 -g
 
+Note: Before running the demo application, make sure to run the command `npm install` from the app directory.
+
 ## Create a new project
 
 To create a new project, run the following command in your terminal:
