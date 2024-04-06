@@ -17,8 +17,6 @@ To install Expo SDK, which is a collection of libraries that provide access to n
 
     npm install expo@48 -g
 
-Note: Before running the demo application, make sure to run the command `npm install` from the app directory.
-
 ## Create a new project
 
 To create a new project, run the following command in your terminal:
@@ -40,6 +38,8 @@ With Expo, you can directly run your application on your phone. To do so,
 
 1. Download the Expo app on your phone.
 2. Once you have the Expo app, you can scan the QR code that appears in your terminal using the camera app or the built in QR code scanner in the Expo app.
+
+<b>Note</b>: Before running the demo application, make sure to run the command `npm install` from the app directory.
 
 ## Tutorial for a demo application
 ### Hello World!
