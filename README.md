@@ -1,9 +1,11 @@
 # react-native-starterpack
 
-### Getting Started
-Install NPM and Node - To-Do
+Template for creating react-native applications.
 
-Install Expo CLI
+## Prerequisites
+Install NPM and Node <a href="https://nodejs.org/en/download/">here</a>
+
+Install Expo CLI:
 
 Expo CLI is a command line tool that allows you to easily build, run, and deploy React Native applications.
 
@@ -14,8 +16,8 @@ To install Expo CLI, run the following command in your terminal:
 To install Expo SDK, which is a collection of libraries that provide access to native device functionality, run the following command in your terminal (we'll be using version 48 for this hackpack)
 
     npm install expo@48 -g
-----------
-### Create a new project
+
+## Create a new project
 
 To create a new project, run the following command in your terminal:
 
@@ -37,9 +39,7 @@ With Expo, you can directly run your application on your phone. To do so,
 1. Download the Expo app on your phone.
 2. Once you have the Expo app, you can scan the QR code that appears in your terminal using the camera app or the built in QR code scanner in the Expo app.
 
-Notes: There will be several additional files in the my-project directory that tell Expo how to build and run your application. You can ignore these files for now.
-
-------
+## Tutorial for a demo application
 ### Hello World!
 
 1. Open the App.js file inside the my-app folder using a code editor of your choice. You should see the following code:
@@ -542,4 +542,4 @@ const styles = StyleSheet.create({
 
 # Congratulations! 🎉
 
-You've finished the react-native hackpack! Now, you can build your own react-native apps!
+You've finished the react-native-starterpack! Now, you can build your own react-native apps!
