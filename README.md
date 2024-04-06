@@ -41,7 +41,7 @@ With Expo, you can directly run your application on your phone. To do so,
 
 <b>Note</b>: Before running the demo application, make sure to run the command `npm install` from the app directory.
 
-## Tutorial for a demo application
+## Tutorial for the demo application
 ### Hello World!
 
 1. Open the App.js file inside the my-app folder using a code editor of your choice. You should see the following code:
